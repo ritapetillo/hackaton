@@ -1,1 +1,1 @@
-window.onload=async function(){document.querySelectorAll(".dot").forEach(((d,o)=>{o<1&&d.classList.add("completed"),1===o&&d.classList.add("load")}))};
+window.onload=async function(){console.log(1),document.querySelectorAll(".dot").forEach(((o,d)=>{d<1&&o.classList.add("completed"),1===d&&o.classList.add("load")}))};

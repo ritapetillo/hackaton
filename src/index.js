@@ -1,5 +1,6 @@
 window.onload = async function () {
   const step = 1;
+  console.log(step);
 
   const colorDots = () => {
     const dots = document.querySelectorAll(".dot");
