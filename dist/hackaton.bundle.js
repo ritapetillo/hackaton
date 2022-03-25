@@ -1,0 +1,1 @@
+window.onload=async function(){console.log(1);const o=await fetch("https://api-co2.cubbit.io/saved"),a=await o.json();console.log(a),document.querySelectorAll(".dot").forEach(((o,a)=>{a<1&&o.classList.add("completed"),1===a&&o.classList.add("load")}))};
