@@ -1,0 +1,1 @@
+window.onload=async function(){document.querySelectorAll(".dot").forEach(((d,o)=>{o<1&&d.classList.add("completed"),1===o&&d.classList.add("load")}))};
