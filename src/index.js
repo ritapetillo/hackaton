@@ -99,11 +99,7 @@ window.onload = async function () {
           Accept: "application/json",
         },
       });
-      let data;
-      if (response.status === 201) data = await response.text();
-      else {
-        data = await response.json();
-      }
+      const data = await response.json();
       // if there is an error, throw error
       if (!data) {
         errorMsg.innerHTML = "Something went wrong";
@@ -113,9 +109,8 @@ window.onload = async function () {
         errorMsg.innerHTML = data.message;
         throw new Error(data.error);
       }
-      console.log(data);
       // redirect to thank you page
-      window.location.href = `/thank-you?referral_code=${data}`;
+      window.location.href = `/thank-you?referral_code=${data.referral_code}`;
     });
   });
 };
