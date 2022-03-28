@@ -5,6 +5,10 @@ window.onload = async function () {
   const submit = document.getElementById("submit");
   const errorMsg = document.getElementById("errorMsg");
 
+  if (!consent.checked) {
+    submit.disabled = true;
+  }
+
   // utils
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
 
@@ -83,8 +87,6 @@ window.onload = async function () {
       }
       const formDataJson = {
         email: email.value,
-        amount: 1,
-        signup: true,
         referral_code: "",
       };
 
@@ -94,9 +96,14 @@ window.onload = async function () {
         body: JSON.stringify(formDataJson),
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
       });
-      const data = await response.json();
+      let data;
+      if (response.status === 201) data = await response.text();
+      else {
+        data = await response.json();
+      }
       // if there is an error, throw error
       if (!data) {
         errorMsg.innerHTML = "Something went wrong";
