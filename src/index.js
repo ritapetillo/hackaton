@@ -10,7 +10,9 @@ window.onload = async function () {
   const { total_co2, green_step: step } = await checkCurrentCO2();
   if (total_co2)
     // view the current co2 and green step
-    document.getElementById("total_co2").innerText = total_co2;
+    document.querySelectorAll(".total_co2").forEach((t, o) => {
+      t.innerHTML = total_co2;
+    });
 
   const colorDots = () => {
     const dots = document.querySelectorAll(".dot");
@@ -28,7 +30,7 @@ window.onload = async function () {
     // get the current percentage completed
     colorDots();
     const getPercentage = () => {
-      const percentage = (step + 0.5 / 7) * 100;
+      const percentage = ((step + 0.5) / 7) * 100;
       return percentage;
     };
     document.getElementById("co2_progress_bar").style.width = getPercentage();
