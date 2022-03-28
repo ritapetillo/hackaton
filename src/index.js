@@ -102,7 +102,7 @@ window.onload = async function () {
         errorMsg.innerHTML = "Something went wrong";
         throw new Error(response.statusText);
       }
-      if (data.error) {
+      if (data?.error) {
         errorMsg.innerHTML = data.message;
         throw new Error(data.error);
       }
