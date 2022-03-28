@@ -1,4 +1,5 @@
 window.onload = async function () {
+  const form = document.querySelector("#hackathon-form");
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
   const checkCurrentCO2 = async () => {
     const response = await fetch("https://api-co2.cubbit.io/saved");
@@ -45,4 +46,24 @@ window.onload = async function () {
       "co2_progress_bar"
     ).style.width = `calc(${getPercentage()}% + 10px)`;
   }
+
+  // on form submit
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const formDataJson = {};
+    formData.forEach((value, key) => {
+      formDataJson[key] = value;
+    });
+    // post the form data to cubbit
+    // const response = await fetch("https://api-co2.cubbit.io/save", {
+    //   method: "POST",
+    //   body: JSON.stringify(formDataJson),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    // const data = await response.json();
+    console.log(formDataJson);
+  });
 };
