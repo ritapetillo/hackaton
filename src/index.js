@@ -31,7 +31,7 @@ window.onload = async function () {
       const percentage = (step / 7) * 100;
       return percentage;
     };
+    document.getElementById("co2_progress_bar").style.width = getPercentage();
   }
   // view the current percentage completed
-  document.getElementById("co2_progress_bar").style.width = getPercentage();
 };
