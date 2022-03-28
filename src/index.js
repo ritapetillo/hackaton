@@ -1,10 +1,4 @@
 window.onload = async function () {
-  //constants
-  const email = document.getElementById("email");
-  const consent = document.getElementById("consent_check");
-  const submit = document.getElementById("submit");
-  const errorMsg = document.getElementById("errorMsg");
-
   if (!consent.checked) {
     submit.disabled = true;
   }
@@ -62,56 +56,75 @@ window.onload = async function () {
     ).style.width = `calc(${getPercentage()}% + 10px)`;
   }
 
+  ////HOME PAGE
   // send form
   Webflow.push(() => {
-    // if consent is checked, enable submit button
-    consent.addEventListener("change", () => {
-      if (consent.checked) {
-        submit.disabled = false;
-      } else {
-        submit.disabled = true;
-      }
-    });
-
-    // on form submit
-    submit.addEventListener("click", async (e) => {
-      if (!consent.value) {
-        e.preventDefault();
-        errorMsg.innerHTML = "Please accept the consent";
-        return;
-      }
-      if (!email.value) {
-        e.preventDefault();
-        errorMsg.innerHTML = "Please enter your email";
-        return;
-      }
-      const formDataJson = {
-        email: email.value,
-        referral_code: "",
-      };
-
-      //post the form data to cubbit
-      const response = await fetch("https://api-co2.cubbit.io/save", {
-        method: "POST",
-        body: JSON.stringify(formDataJson),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+    // if url is /
+    if (
+      window.location.pathname === "/" ||
+      window.location.pathname === "/it"
+    ) {
+      //constants
+      const email = document.getElementById("email");
+      const consent = document.getElementById("consent_check");
+      const submit = document.getElementById("submit");
+      const errorMsg = document.getElementById("errorMsg");
+      // if consent is checked, enable submit button
+      consent.addEventListener("change", () => {
+        if (consent.checked) {
+          submit.disabled = false;
+        } else {
+          submit.disabled = true;
+        }
       });
-      const data = await response.json();
-      console.log(data);
-      // if there is an error, throw error
-      if (!data) {
-        errorMsg.innerHTML = "Something went wrong";
-        throw new Error(response.statusText);
-      }
-      if (data?.error) {
-        errorMsg.innerHTML = data.message;
-        throw new Error(data.error);
-      }
-      //redirect to thank you page
-      window.location.href = `/thank-you?referral_code=${data.referral_code}`;
-    });
+
+      // on form submit
+      submit.addEventListener("click", async (e) => {
+        if (!consent.value) {
+          e.preventDefault();
+          errorMsg.innerHTML = "Please accept the consent";
+          return;
+        }
+        if (!email.value) {
+          e.preventDefault();
+          errorMsg.innerHTML = "Please enter your email";
+          return;
+        }
+        const formDataJson = {
+          email: email.value,
+          referral_code: "",
+        };
+
+        //post the form data to cubbit
+        const response = await fetch("https://api-co2.cubbit.io/save", {
+          method: "POST",
+          body: JSON.stringify(formDataJson),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+        const data = await response.json();
+        // if there is an error, throw error
+        if (!data) {
+          errorMsg.innerHTML = "Something went wrong";
+          throw new Error(response.statusText);
+        }
+        if (data?.error) {
+          errorMsg.innerHTML = data.message;
+          throw new Error(data.error);
+        }
+        //redirect to thank you page
+        window.location.href = `/thank-you?referral_code=${data.referral_code}`;
+      });
+    }
+  });
+
+  ////THANK YOU PAGE
+  Webflow.push(() => {
+    // if url is /thank-you
+    if (window.location.pathname.indexOf("/thank-you") !== -1) {
+      SocialShareKit.init();
+    }
   });
 };
