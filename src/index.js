@@ -32,8 +32,7 @@ window.onload = async function () {
     colorDots();
     const getPercentage = () => {
       if (step === 0) {
-        document.getElementById("co2_progress_bar").style.width = `10px`;
-        return;
+        return 0;
       }
       const differenceNextStep = steps_total[step + 1] - steps_total[step];
       const differenceCurrentStep = total_co2 - steps_total[step];
@@ -44,6 +43,6 @@ window.onload = async function () {
     };
     document.getElementById(
       "co2_progress_bar"
-    ).style.width = `calc(${getPercentage()`%`} + 10px)`;
+    ).style.width = `calc(${getPercentage()}% + 10px)`;
   }
 };
