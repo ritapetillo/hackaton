@@ -31,6 +31,10 @@ window.onload = async function () {
     // get the current percentage completed
     colorDots();
     const getPercentage = () => {
+      if (step === 0) {
+        document.getElementById("co2_progress_bar").style.width = `10px`;
+        return;
+      }
       const differenceNextStep = steps_total[step + 1] - steps_total[step];
       const differenceCurrentStep = total_co2 - steps_total[step];
       const percentageCurrentStep = differenceCurrentStep / differenceNextStep;
@@ -38,8 +42,8 @@ window.onload = async function () {
         ((step + percentageCurrentStep) / (steps_total.length - 1)) * 100;
       return totalCompletitionPercenage;
     };
-    document.getElementById("co2_progress_bar").style.width =
-      getPercentage() + "%";
+    document.getElementById(
+      "co2_progress_bar"
+    ).style.width = `calc(${getPercentage()`%`} + 10px)`;
   }
-  // view the current percentage completed
 };
