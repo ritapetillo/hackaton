@@ -1,8 +1,4 @@
 window.onload = async function () {
-  if (!consent.checked) {
-    submit.disabled = true;
-  }
-
   // utils
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
 
@@ -69,6 +65,9 @@ window.onload = async function () {
       const consent = document.getElementById("consent_check");
       const submit = document.getElementById("submit");
       const errorMsg = document.getElementById("errorMsg");
+      if (!consent.checked) {
+        submit.disabled = true;
+      }
       // if consent is checked, enable submit button
       consent.addEventListener("change", () => {
         if (consent.checked) {
