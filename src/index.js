@@ -123,7 +123,25 @@ window.onload = async function () {
   Webflow.push(() => {
     // if url is /thank-you
     if (window.location.pathname.indexOf("/thank-you") !== -1) {
-      SocialShareKit.init();
+      const referral_code = window.location.search.split("=")[1];
+      // set new og:url
+      document
+        .querySelector("meta[property='og:url']")
+        .setAttribute(
+          "content",
+          `https://cubbit.io?referral_code=${referral_code}`
+        );
+      // set new og:title
+      document
+        .querySelector("meta[property='og:title']")
+        .setAttribute("content", `I've freed 2Kg of CO2`);
+      SocialShareKit.init({
+        facebook: {
+          url: "https://cubbit.io",
+          title: "CO2 saved",
+          text: "CO2 saved",
+        },
+      });
     }
   });
 };
