@@ -35,7 +35,7 @@ window.onload = async function () {
       const differenceCurrentStep = total_co2 - steps_total[step];
       const percentageCurrentStep = differenceCurrentStep / differenceNextStep;
       const totalCompletitionPercenage =
-        ((step + percentageCurrentStep) / steps_total.length - 1) * 100;
+        ((step + percentageCurrentStep) / (steps_total.length - 1)) * 100;
       return totalCompletitionPercenage;
     };
     document.getElementById("co2_progress_bar").style.width =
