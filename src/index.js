@@ -53,7 +53,7 @@ window.onload = async function () {
     const email = document.getElementById("email").value;
     const formDataJson = {
       email,
-      amount: 1,
+      amount: "1",
       signup: true,
       referral_code: "",
     };
