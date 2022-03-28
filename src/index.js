@@ -96,14 +96,19 @@ window.onload = async function () {
           "Content-Type": "application/json",
         },
       });
+      const data = await response.json();
       // if there is an error, throw error
-      if (!response.ok) {
+      if (!data) {
         errorMsg.innerHTML = "Something went wrong";
         throw new Error(response.statusText);
       }
-      const data = await response.json();
+      if (data.error) {
+        errorMsg.innerHTML = data.message;
+        throw new Error(data.error);
+      }
+      console.log(data);
       // redirect to thank you page
-      window.location.href = `thank-you?referral_code=${data}`;
+      window.location.href = `/thank-you?referral_code=${data}`;
     });
   });
 };
