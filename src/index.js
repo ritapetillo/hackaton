@@ -1,5 +1,9 @@
 window.onload = async function () {
-  const form = document.getElementById("form");
+  const email = document.getElementById("email");
+  const consent = document.getElementById("consent_check");
+  const submit = document.getElementById("submit");
+  const errorMsg = document.getElementById("errorMsg");
+
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
   const checkCurrentCO2 = async () => {
     const response = await fetch("https://api-co2.cubbit.io/saved");
@@ -47,10 +51,27 @@ window.onload = async function () {
     ).style.width = `calc(${getPercentage()}% + 10px)`;
   }
   Webflow.push(() => {
+    // if consent is checked, enable submit button
+    consent.addEventListener("change", () => {
+      if (consent.checked) {
+        submit.disabled = false;
+      } else {
+        submit.disabled = true;
+      }
+    });
+
     // on form submit
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
+    submit.addEventListener("click", async (e) => {
+      if (!consent) {
+        e.preventDefault();
+        errorMsg.innerHTML = "Please accept the consent";
+        return;
+      }
+      if (!email.value) {
+        e.preventDefault();
+        errorMsg.innerHTML = "Please enter your email";
+        return;
+      }
       const formDataJson = {
         email,
         amount: 1,
@@ -68,6 +89,7 @@ window.onload = async function () {
       });
       // if there is an error, throw error
       if (!response.ok) {
+        errorMsg.innerHTML = "Something went wrong";
         throw new Error(response.statusText);
       }
       const data = await response.json();
