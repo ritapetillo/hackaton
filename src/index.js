@@ -1,10 +1,14 @@
 window.onload = async function () {
+  //constants
   const email = document.getElementById("email");
   const consent = document.getElementById("consent_check");
   const submit = document.getElementById("submit");
   const errorMsg = document.getElementById("errorMsg");
 
+  // utils
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
+
+  //lib
   const checkCurrentCO2 = async () => {
     const response = await fetch("https://api-co2.cubbit.io/saved");
     const data = await response.json();
@@ -12,6 +16,7 @@ window.onload = async function () {
     console.log(data);
     return { total_co2, green_step };
   };
+
   // get the current co2 and green step
   const { total_co2, green_step: step } = await checkCurrentCO2();
   if (total_co2)
@@ -32,6 +37,8 @@ window.onload = async function () {
       }
     });
   };
+
+  // set the progress bar width and steps
   if (step) {
     // get the current percentage completed
     colorDots();
@@ -50,6 +57,8 @@ window.onload = async function () {
       "co2_progress_bar"
     ).style.width = `calc(${getPercentage()}% + 10px)`;
   }
+
+  // send form
   Webflow.push(() => {
     // if consent is checked, enable submit button
     consent.addEventListener("change", () => {
@@ -62,7 +71,7 @@ window.onload = async function () {
 
     // on form submit
     submit.addEventListener("click", async (e) => {
-      if (!consent) {
+      if (!consent.value) {
         e.preventDefault();
         errorMsg.innerHTML = "Please accept the consent";
         return;
@@ -73,7 +82,7 @@ window.onload = async function () {
         return;
       }
       const formDataJson = {
-        email,
+        email: email.value,
         amount: 1,
         signup: true,
         referral_code: "",
