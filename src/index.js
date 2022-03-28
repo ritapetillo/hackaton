@@ -50,16 +50,27 @@ window.onload = async function () {
   // on form submit
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const email = form["email"].value;
-    console.log(email);
-    // post the form data to cubbit
-    // const response = await fetch("https://api-co2.cubbit.io/save", {
-    //   method: "POST",
-    //   body: JSON.stringify(formDataJson),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // const data = await response.json();
+    const email = document.getElementById("email").value;
+    const formDataJson = {
+      email,
+      amount: 1,
+      signup: true,
+      referral_code: "",
+    };
+
+    //post the form data to cubbit
+    const response = await fetch("https://api-co2.cubbit.io/save", {
+      method: "POST",
+      body: JSON.stringify(formDataJson),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    if (data.success) {
+      alert("Successfully saved!");
+    } else {
+      alert("Something went wrong!");
+    }
   });
 };
