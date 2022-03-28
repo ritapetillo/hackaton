@@ -66,13 +66,13 @@ window.onload = async function () {
           "Content-Type": "application/json",
         },
       });
-      const data = await response.json();
-      if (data.success) {
-        alert("Successfully saved!");
-      } else {
-        alert("Something went wrong!");
-        return false;
+      // if there is an error, throw error
+      if (!response.ok) {
+        throw new Error(response.statusText);
       }
+      const data = await response.json();
+      // redirect to thank you page
+      window.location.href = `thank-you?referral_code=${data}`;
     });
   });
 };
