@@ -46,32 +46,33 @@ window.onload = async function () {
       "co2_progress_bar"
     ).style.width = `calc(${getPercentage()}% + 10px)`;
   }
+  Webflow.push(() => {
+    // on form submit
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const formDataJson = {
+        email,
+        amount: 1,
+        signup: true,
+        referral_code: "",
+      };
 
-  // on form submit
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const formDataJson = {
-      email,
-      amount: 1,
-      signup: true,
-      referral_code: "",
-    };
-
-    //post the form data to cubbit
-    const response = await fetch("https://api-co2.cubbit.io/save", {
-      method: "POST",
-      body: JSON.stringify(formDataJson),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      //post the form data to cubbit
+      const response = await fetch("https://api-co2.cubbit.io/save", {
+        method: "POST",
+        body: JSON.stringify(formDataJson),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      if (data.success) {
+        alert("Successfully saved!");
+      } else {
+        alert("Something went wrong!");
+        return false;
+      }
     });
-    const data = await response.json();
-    if (data.success) {
-      alert("Successfully saved!");
-    } else {
-      alert("Something went wrong!");
-      return false;
-    }
   });
 };
