@@ -1,4 +1,5 @@
 window.onload = async function () {
+  const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
   const checkCurrentCO2 = async () => {
     const response = await fetch("https://api-co2.cubbit.io/saved");
     const data = await response.json();
@@ -30,8 +31,12 @@ window.onload = async function () {
     // get the current percentage completed
     colorDots();
     const getPercentage = () => {
-      const percentage = ((step + 0.5) / 7) * 100;
-      return percentage;
+      const differenceNextStep = steps_total[step + 1] - steps_total[step];
+      const differenceCurrentStep = total_co2 - steps_total[step];
+      const percentageCurrentStep = differenceCurrentStep / differenceNextStep;
+      const totalCompletitionPercenage =
+        ((step + percentageCurrentStep) / steps_total.length) * 100;
+      return totalCompletitionPercenage;
     };
     document.getElementById("co2_progress_bar").style.width =
       getPercentage() + "%";
