@@ -16,10 +16,10 @@ window.onload = async function () {
     const dots = document.querySelectorAll(".dot");
     // give class .completed to dots position < step
     dots.forEach((dot, index) => {
-      if (index < step - 1) {
+      if (index < step) {
         dot.classList.add("completed");
       }
-      if (index === step - 1) {
+      if (index === step) {
         dot.classList.add("load");
       }
     });
@@ -28,7 +28,7 @@ window.onload = async function () {
     // get the current percentage completed
     colorDots();
     const getPercentage = () => {
-      const percentage = (step / 7) * 100;
+      const percentage = (step + 0.5 / 7) * 100;
       return percentage;
     };
     document.getElementById("co2_progress_bar").style.width = getPercentage();
