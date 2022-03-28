@@ -1,3 +1,5 @@
+import SocialShareKit from "social-share-kit";
+
 window.onload = async function () {
   //constants
   const email = document.getElementById("email");
@@ -100,6 +102,7 @@ window.onload = async function () {
         },
       });
       const data = await response.json();
+      console.log(data);
       // if there is an error, throw error
       if (!data) {
         errorMsg.innerHTML = "Something went wrong";
@@ -110,7 +113,19 @@ window.onload = async function () {
         throw new Error(data.error);
       }
       // redirect to thank you page
-      window.location.href = `/thank-you?referral_code=${data.referral_code}`;
+      // window.location.href = `/thank-you?referral_code=${data.referral_code}`;
     });
+  });
+
+  SocialShareKit.init({
+    selector: ".social-share-kit",
+    url: "https://www.cubbit.io/",
+    text: "I just saved the world from CO2 by using Cubbit",
+    hashtags: "CO2, Cubbit, SaveTheWorld",
+    facebook: {
+      url: "https://www.cubbit.io/",
+      text: "I just saved the world from CO2 by using Cubbit",
+      hashtags: "CO2, Cubbit, SaveTheWorld",
+    },
   });
 };
