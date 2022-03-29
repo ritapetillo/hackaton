@@ -75,8 +75,8 @@ window.onload = async function () {
   Webflow.push(() => {
     // if url is /
     if (
-      window.location.pathname === "/" ||
-      window.location.pathname === "/it"
+      window.location.pathname === "/removemyco2" ||
+      window.location.pathname === "/it/removemyco2"
     ) {
       // referral code
       const referral_code = window.location.search.split("=")[1];
