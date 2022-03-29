@@ -155,7 +155,7 @@ window.onload = async function () {
       // add referal query param to subscribe link
       subscribeLink.href += `?referral_code=${referral_code}`;
 
-      const text = `${n_trees.toString()} I've saved ${total_co2_user} kg of CO2. Help me complete all steps here removemyco2.com?referral_code=${referral_code}`;
+      const text = `${n_trees.toString()} I've saved ${total_co2_user} kg of CO2. Help me complete all steps here https://cubbit.io/removemyco2?referral_code=${referral_code}`;
 
       document.getElementById("total_co2_user").innerHTML = total_co2_user;
       // facebook share link
