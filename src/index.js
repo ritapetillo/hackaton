@@ -79,7 +79,7 @@ window.onload = async function () {
       window.location.pathname === "/it"
     ) {
       // referral code
-      const referral_code = window.location.search.split("=")[1] | "";
+      const referral_code = window.location.search.split("=")[1];
       //constants
       const email = document.getElementById("email");
       const consent = document.getElementById("consent_check");
@@ -144,9 +144,8 @@ window.onload = async function () {
     // if url is /thank-you
     if (window.location.pathname.indexOf("/thank-you") !== -1) {
       // get referral code from query string
-      const referral_code = window.location.search.split("=")[1] | "";
+      const referral_code = window.location.search.split("=")[1];
       console.log(referral_code);
-
       const { total_co2_user } = await getCo2ForUser(referral_code);
       const n_trees = generateTrees(total_co2_user);
       const subscribeLink = document.getElementById("link-subscribe");
