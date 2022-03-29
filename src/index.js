@@ -143,9 +143,11 @@ window.onload = async function () {
       const referral_code = window.location.search.split("=")[1];
       const { total_co2_user } = await getCo2ForUser(referral_code);
       const n_trees = generateTrees(total_co2_user);
-      console.log(n_trees);
+      const subscribeLink = document.getElementById("link-subscribe");
+      // add referal query param to subscribe link
+      subscribeLink.href += `?referral_code=${referral_code}`;
 
-      const text = `I've saved ${total_co2_user} kg of CO2. Help me complete all steps here removemyco2.com?referral_code=${referral_code}`;
+      const text = `${n_trees.toString()} I've saved ${total_co2_user} kg of CO2. Help me complete all steps here removemyco2.com?referral_code=${referral_code}`;
 
       document.getElementById("total_co2_user").innerHTML = total_co2_user;
       // facebook share link
