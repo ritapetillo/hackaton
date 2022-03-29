@@ -1,7 +1,4 @@
 window.onload = async function () {
-  // referral code
-  const referral_code = window.location.search.split("=")[1] | "";
-
   // utils
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
 
@@ -81,6 +78,8 @@ window.onload = async function () {
       window.location.pathname === "/" ||
       window.location.pathname === "/it"
     ) {
+      // referral code
+      const referral_code = window.location.search.split("=")[1] | "";
       //constants
       const email = document.getElementById("email");
       const consent = document.getElementById("consent_check");
@@ -144,6 +143,10 @@ window.onload = async function () {
   Webflow.push(async () => {
     // if url is /thank-you
     if (window.location.pathname.indexOf("/thank-you") !== -1) {
+      // get referral code from query string
+      const referral_code = window.location.search.split("=")[1] | "";
+      console.log(referral_code);
+
       const { total_co2_user } = await getCo2ForUser(referral_code);
       const n_trees = generateTrees(total_co2_user);
       const subscribeLink = document.getElementById("link-subscribe");
