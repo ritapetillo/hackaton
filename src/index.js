@@ -220,7 +220,7 @@ window.onload = async function () {
       // generate copy to clipboard link
       const copyToClipboard = () =>
         navigator.clipboard.writeText(
-          "https://removemyco2.com?referral_code=${referral_code}"
+          `https://removemyco2.com?referral_code=${referral_code}`
         );
 
       document.getElementById("copy_btn").addEventListener("click", () => {
