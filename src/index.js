@@ -133,6 +133,9 @@ window.onload = async function () {
           errorMsg.innerHTML = data.message;
           throw new Error(data.error);
         }
+        console.log(
+          `./removemyco2/thank-you?referral_code=${data.referral_code}`
+        );
         //redirect to thank you page
         window.location.href = `./removemyco2/thank-you?referral_code=${data.referral_code}`;
       });
