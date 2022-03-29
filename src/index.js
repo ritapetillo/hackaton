@@ -134,7 +134,7 @@ window.onload = async function () {
           throw new Error(data.error);
         }
         //redirect to thank you page
-        window.location.href = `./thank-you?referral_code=${data.referral_code}`;
+        window.location.href = `./removemyco2/thank-you?referral_code=${data.referral_code}`;
       });
     }
   });
