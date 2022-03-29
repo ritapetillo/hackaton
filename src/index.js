@@ -159,13 +159,13 @@ window.onload = async function () {
 
       document.getElementById("total_co2_user").innerHTML = total_co2_user;
       // facebook share link
-      const fbShareLink = `https://www.facebook.com/sharer/sharer.php?u=https://removemyco2.com?referral_code=${referral_code}&quote=${text}`;
+      const fbShareLink = `https://www.facebook.com/sharer/sharer.php?u=https://cubbit.io/removemyco2?referral_code=${referral_code}&quote=${text}`;
       // twitter share link
-      const twShareLink = `https://twitter.com/intent/tweet?text=${text}&url=https://removemyco2.com?referral_code=${referral_code}`;
+      const twShareLink = `https://twitter.com/intent/tweet?text=${text}&url=https://cubbit.io/removemyco2?referral_code=${referral_code}`;
       // linkedin share link
-      const liShareLink = `https://www.linkedin.com/sharing/share-offsite/?url=https://removemyco2.com?referral_code=${referral_code}&quote=${text}`;
+      const liShareLink = `https://www.linkedin.com/sharing/share-offsite/?url=https://cubbit.io/removemyco2?referral_code=${referral_code}&quote=${text}`;
       // reddit share link
-      const reShareLink = `https://www.reddit.com/submit?url=https://removemyco2.com?referral_code=${referral_code}&title=${text}`;
+      const reShareLink = `https://www.reddit.com/submit?url=https://cubbit.io/removemyco2?referral_code=${referral_code}&title=${text}`;
       // email share link
       const emailShareLink = `mailto:?body=${text}&subject="Save CO2 from the Environment`;
       const shareLinks = {
@@ -225,7 +225,7 @@ window.onload = async function () {
       // generate copy to clipboard link
       const copyToClipboard = () =>
         navigator.clipboard.writeText(
-          `https://removemyco2.com?referral_code=${referral_code}`
+          `https://cubbit.io/removemyco2?referral_code=${referral_code}`
         );
 
       document.getElementById("copy_btn").addEventListener("click", () => {
