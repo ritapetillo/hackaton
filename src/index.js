@@ -10,6 +10,14 @@ window.onload = async function () {
     console.log(data);
     return { total_co2, green_step };
   };
+  const getCo2ForUser = async (referral_code) => {
+    const response = await fetch(
+      `https://api-co2.cubbit.io/saved?email=${referral_code}`
+    );
+    const data = await response.json();
+    const { total_co2: total_co2_user, green_step } = data;
+    return { total_co2_user };
+  };
 
   // get the current co2 and green step
   const { total_co2, green_step: step } = await checkCurrentCO2();
@@ -120,20 +128,22 @@ window.onload = async function () {
   });
 
   ////THANK YOU PAGE
-  Webflow.push(() => {
+  Webflow.push(async () => {
     // if url is /thank-you
     if (window.location.pathname.indexOf("/thank-you") !== -1) {
       const referral_code = window.location.search.split("=")[1];
+      const { total_co2_user } = await getCo2ForUser(referral_code);
+      document.getElementById("total_co2_user").innerHTML = total_co2_user;
       // facebook share link
-      const fbShareLink = `https://www.facebook.com/sharer/sharer.php?u=https://cubbit.io?referral_code=${referral_code}&quote=I%20just%20saved%20${referral_code}%20CO2%20from%20the%20environment%20by%20using%20Cubbit.io%20and%20I%20can%20help%20you%20save%20CO2%20too.%20Check%20it%20out%20here%3A%20https://cubbit.io?referral_code=${referral_code}`;
+      const fbShareLink = `https://www.facebook.com/sharer/sharer.php?u=https://removemyco2.com?referral_code=${referral_code}&quote=I%20just%20saved%20${total_co2}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}`;
       // twitter share link
-      const twShareLink = `https://twitter.com/intent/tweet?text=I%20just%20saved%20${referral_code}%20CO2%20from%20the%20environment%20by%20using%20Cubbit.io%20and%20I%20can%20help%20you%20save%20CO2%20too.%20Check%20it%20out%20here%3A%20https://cubbit.io?referral_code=${referral_code}`;
+      const twShareLink = `https://twitter.com/intent/tweet?text=I%20just%20saved%20${total_co2}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}`;
       // linkedin share link
-      const liShareLink = `https://www.linkedin.com/sharing/share-offsite/?url=https://cubbit.io?referral_code=${referral_code}`;
+      const liShareLink = `https://www.linkedin.com/sharing/share-offsite/?url=https://removemyco2.com?referral_code=${referral_code}`;
       // reddit share link
-      const reShareLink = `https://www.reddit.com/submit?url=https://cubbit.io?referral_code=${referral_code}&title=I%20just%20saved%20${referral_code}%20CO2%20from%20the%20environment%20by%20using%20Cubbit.io%20and%20I%20can%20help%20you%20save%20CO2%20too.%20Check%20it%20out%20here%3A%20https://cubbit.io?referral_code=${referral_code}`;
+      const reShareLink = `https://www.reddit.com/submit?url=https://removemyco2.com?referral_code=${referral_code}&title=I%20just%20saved%20${total_co2}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}`;
       // email share link
-      const emailShareLink = `mailto:?subject=I%20just%20saved%20${referral_code}%20CO2%20from%20the%20environment%20by%20using%20Cubbit.io%20and%20I%20can%20help%20you%20save%20CO2%20too.%20Check%20it%20out%20here%3A%20https://cubbit.io?referral_code=${referral_code}`;
+      const emailShareLink = `mailto:?body=I%20just%20saved%20${total_co2}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}&subject="Save CO2 from the Environment`;
       const shareLinks = {
         fbShareLink,
         twShareLink,
@@ -174,11 +184,7 @@ window.onload = async function () {
             Accept: "application/json",
           },
         });
-        const data = await response.json();
-        if (data.error) {
-          throw new Error(data.error);
-        }
-        return data;
+        return "Sent";
       };
 
       //for each share link, add event listener
