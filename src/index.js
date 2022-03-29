@@ -19,6 +19,15 @@ window.onload = async function () {
     return { total_co2_user };
   };
 
+  const generateATrees = (co2_user) => {
+    let trees = "";
+    // generate a tree for each co2 user
+    Array.from(co2_user).forEach((co2_user) => {
+      trees += "🌳";
+    });
+    return trees;
+  };
+
   // get the current co2 and green step
   const { total_co2, green_step: step } = await checkCurrentCO2();
   if (total_co2)
@@ -133,17 +142,19 @@ window.onload = async function () {
     if (window.location.pathname.indexOf("/thank-you") !== -1) {
       const referral_code = window.location.search.split("=")[1];
       const { total_co2_user } = await getCo2ForUser(referral_code);
+      const n_trees = generateATrees(total_co2_user);
+
       document.getElementById("total_co2_user").innerHTML = total_co2_user;
       // facebook share link
-      const fbShareLink = `https://www.facebook.com/sharer/sharer.php?u=https://removemyco2.com?referral_code=${referral_code}&quote=I%20just%20saved%20${total_co2}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}`;
+      const fbShareLink = `https://www.facebook.com/sharer/sharer.php?u=https://removemyco2.com?referral_code=${referral_code}&quote=${n_trees}%20I%20just%20saved%20${total_co2_user}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}`;
       // twitter share link
-      const twShareLink = `https://twitter.com/intent/tweet?text=I%20just%20saved%20${total_co2}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}`;
+      const twShareLink = `https://twitter.com/intent/tweet?text=${n_trees}%20I%20just%20saved%20${total_co2_user}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}`;
       // linkedin share link
       const liShareLink = `https://www.linkedin.com/sharing/share-offsite/?url=https://removemyco2.com?referral_code=${referral_code}`;
       // reddit share link
-      const reShareLink = `https://www.reddit.com/submit?url=https://removemyco2.com?referral_code=${referral_code}&title=I%20just%20saved%20${total_co2}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}`;
+      const reShareLink = `https://www.reddit.com/submit?url=https://removemyco2.com?referral_code=${referral_code}&title=${n_trees}%20I%20just%20saved%20${total_co2_user}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}`;
       // email share link
-      const emailShareLink = `mailto:?body=I%20just%20saved%20${total_co2}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}&subject="Save CO2 from the Environment`;
+      const emailShareLink = `mailto:?body=${n_trees}%20I%20just%20saved%20${total_co2_user}%20CO2%20from%20the%20environment.%20Help%20me%20complete%20all%steps%20here%3A%20https://removemyco2.com?referral_code=${referral_code}&subject="Save CO2 from the Environment`;
       const shareLinks = {
         fbShareLink,
         twShareLink,
