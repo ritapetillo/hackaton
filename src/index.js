@@ -19,12 +19,12 @@ window.onload = async function () {
     return { total_co2_user };
   };
 
-  const generateATrees = (co2_user) => {
+  const generateTrees = (co2_user) => {
     let trees = "";
     // generate a tree for each co2 user
-    Array.from(co2_user).forEach((co2_user) => {
-      trees += "🌳";
-    });
+    for (let i = 0; i < co2_user; i++) {
+      trees += `🌳`;
+    }
     return trees;
   };
 
@@ -142,7 +142,7 @@ window.onload = async function () {
     if (window.location.pathname.indexOf("/thank-you") !== -1) {
       const referral_code = window.location.search.split("=")[1];
       const { total_co2_user } = await getCo2ForUser(referral_code);
-      const n_trees = generateATrees(total_co2_user);
+      const n_trees = generateTrees(total_co2_user);
 
       document.getElementById("total_co2_user").innerHTML = total_co2_user;
       // facebook share link
