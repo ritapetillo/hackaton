@@ -124,23 +124,72 @@ window.onload = async function () {
     // if url is /thank-you
     if (window.location.pathname.indexOf("/thank-you") !== -1) {
       const referral_code = window.location.search.split("=")[1];
-      // set new og:url
-      document
-        .querySelector("meta[property='og:url']")
-        .setAttribute(
-          "content",
-          `https://cubbit.io?referral_code=${referral_code}`
-        );
-      // set new og:title
-      document
-        .querySelector("meta[property='og:title']")
-        .setAttribute("content", `I've freed 2Kg of CO2`);
-      SocialShareKit.init({
-        facebook: {
-          url: "https://cubbit.io",
-          title: "CO2 saved",
-          text: "CO2 saved",
-        },
+      // facebook share link
+      const fbShareLink = `https://www.facebook.com/sharer/sharer.php?u=https://cubbit.io?referral_code=${referral_code}&quote=I%20just%20saved%20${referral_code}%20CO2%20from%20the%20environment%20by%20using%20Cubbit.io%20and%20I%20can%20help%20you%20save%20CO2%20too.%20Check%20it%20out%20here%3A%20https://cubbit.io?referral_code=${referral_code}`;
+      // twitter share link
+      const twShareLink = `https://twitter.com/intent/tweet?text=I%20just%20saved%20${referral_code}%20CO2%20from%20the%20environment%20by%20using%20Cubbit.io%20and%20I%20can%20help%20you%20save%20CO2%20too.%20Check%20it%20out%20here%3A%20https://cubbit.io?referral_code=${referral_code}`;
+      // linkedin share link
+      const liShareLink = `https://www.linkedin.com/sharing/share-offsite/?url=https://cubbit.io?referral_code=${referral_code}`;
+      // reddit share link
+      const reShareLink = `https://www.reddit.com/submit?url=https://cubbit.io?referral_code=${referral_code}&title=I%20just%20saved%20${referral_code}%20CO2%20from%20the%20environment%20by%20using%20Cubbit.io%20and%20I%20can%20help%20you%20save%20CO2%20too.%20Check%20it%20out%20here%3A%20https://cubbit.io?referral_code=${referral_code}`;
+      // email share link
+      const emailShareLink = `mailto:?subject=I%20just%20saved%20${referral_code}%20CO2%20from%20the%20environment%20by%20using%20Cubbit.io%20and%20I%20can%20help%20you%20save%20CO2%20too.%20Check%20it%20out%20here%3A%20https://cubbit.io?referral_code=${referral_code}`;
+      const shareLinks = {
+        fbShareLink,
+        twShareLink,
+        liShareLink,
+        reShareLink,
+        emailShareLink,
+      };
+
+      const getSocialPlatform = (linkName) => {
+        switch (linkName) {
+          case "fbShareLink":
+            return "facebook";
+          case "twShareLink":
+            return "twitter";
+          case "liShareLink":
+            return "linkedin";
+          case "reShareLink":
+            return "reddit";
+          case "emailShareLink":
+            return "email";
+          default:
+            return "";
+        }
+      };
+
+      const addPointForSharing = async (socialLinkName) => {
+        const social_media = getSocialPlatform(socialLinkName);
+
+        const response = await fetch(`https://api-co2.cubbit.io/save-social`, {
+          method: "POST",
+          body: JSON.stringify({
+            email: referral_code,
+            social_media,
+            amount: 1,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+        const data = await response.json();
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        return data;
+      };
+
+      //for each share link, add event listener
+      Object.keys(shareLinks).forEach((key) => {
+        document.getElementById(key).addEventListener("click", () => {
+          window.open(shareLinks[key], "_blank");
+          const share = addPointForSharing(key);
+          if (share) {
+            console.log(share);
+          }
+        });
       });
     }
   });
