@@ -1,4 +1,7 @@
 window.onload = async function () {
+  // referral code
+  const referral_code = window.location.search.split("=")[1] | "";
+
   // utils
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
 
@@ -20,6 +23,7 @@ window.onload = async function () {
   };
 
   const generateTrees = (co2_user) => {
+    if (co2_user > 20) co2_user = 20;
     let trees = "";
     // generate a tree for each co2 user
     for (let i = 0; i < co2_user; i++) {
@@ -108,7 +112,7 @@ window.onload = async function () {
         }
         const formDataJson = {
           email: email.value,
-          referral_code: "",
+          referral_code: referral_code || "",
         };
 
         //post the form data to cubbit
@@ -140,7 +144,6 @@ window.onload = async function () {
   Webflow.push(async () => {
     // if url is /thank-you
     if (window.location.pathname.indexOf("/thank-you") !== -1) {
-      const referral_code = window.location.search.split("=")[1];
       const { total_co2_user } = await getCo2ForUser(referral_code);
       const n_trees = generateTrees(total_co2_user);
       const subscribeLink = document.getElementById("link-subscribe");
