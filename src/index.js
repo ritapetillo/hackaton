@@ -136,9 +136,7 @@ window.onload = async function () {
           errorMsg.innerHTML = data.message;
           throw new Error(data.error);
         }
-        console.log(
-          `./removemyco2/thank-you?referral_code=${data.referral_code}`
-        );
+
         //redirect to thank you page
         window.location.href = `./removemyco2/thank-you?referral_code=${data.referral_code}`;
       });
@@ -151,7 +149,9 @@ window.onload = async function () {
     if (window.location.pathname.indexOf("/thank-you") !== -1) {
       // get referral code from query string
       const referral_code = window.location.search.split("=")[1];
-      console.log(referral_code);
+      if (!referral_code) {
+        window.location.href = "/removemyco2";
+      }
       const { total_co2_user } = await getCo2ForUser(referral_code);
       const n_trees = generateTrees(total_co2_user);
       const subscribeLink = document.getElementById("link-subscribe");
