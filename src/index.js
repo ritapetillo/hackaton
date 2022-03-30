@@ -1,6 +1,7 @@
 window.onload = async function () {
   // utils
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
+  const loader = document.getElementById("loader");
 
   //lib
   const checkCurrentCO2 = async () => {
@@ -36,6 +37,8 @@ window.onload = async function () {
     document.querySelectorAll(".total_co2").forEach((t, o) => {
       t.innerHTML = total_co2;
     });
+  // hide loader
+  loader.style.display = "none";
 
   const colorDots = () => {
     const dots = document.querySelectorAll(".dot");
