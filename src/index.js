@@ -14,6 +14,14 @@ window.onload = async function () {
     }
     return (4 + 16.6 * (step - 1)) / 100;
   };
+  const getStepPercentage = (percentage) => {
+    if (step === 0) {
+      // return 4%
+      return (percentage * 4) / 100;
+    }
+    return (percentage * 16.6) / 100;
+  };
+
   const loader = document.getElementById("loader");
   const referral_code = new URLSearchParams(window.location.search).get(
     "referral_code"
@@ -85,7 +93,7 @@ window.onload = async function () {
       const differenceCurrentStep = total_co2 - steps_total[step]; //50 - 35 // how much we have to complete the current step -> 15
       const percentageCurrentStep = differenceCurrentStep / differenceNextStep; // 15 / 250 = 0.06
       const total = fullStepPercentage(step);
-      // + percentageCurrentStep * (step < 1 ? 4 / 100 : 16.66 / 100); // 0.06 + 4%
+      console.log(total);
       return total;
     };
     console.log(getPercentage());
