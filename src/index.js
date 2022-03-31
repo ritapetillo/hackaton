@@ -5,6 +5,13 @@ window.onload = async function () {
   const referral_code = new URLSearchParams(window.location.search).get(
     "referral_code"
   );
+  const lang = Weglot.getCurrentLang();
+
+  const headers = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    "x-co2-challenge-lng": lang,
+  };
 
   //lib
   const checkCurrentCO2 = async () => {
@@ -15,7 +22,7 @@ window.onload = async function () {
     return { total_co2, green_step };
   };
   const getCo2ForUser = async (referral_code) => {
-    const response = await fetch(
+    const response = await newFetch(
       `https://api-co2.cubbit.io/saved?email=${referral_code}`
     );
     const data = await response.json();
@@ -64,8 +71,8 @@ window.onload = async function () {
       if (step === 0) {
         return 0;
       }
-      const differenceNextStep = steps_total[step] - steps_total[step - 1];
-      const differenceCurrentStep = total_co2 - steps_total[step - 1];
+      const differenceNextStep = steps_total[step] - steps_total[step];
+      const differenceCurrentStep = total_co2 - steps_total[step];
       const percentageCurrentStep = differenceCurrentStep / differenceNextStep;
       const totalCompletitionPercenage =
         ((step + percentageCurrentStep) / (steps_total.length - 1)) * 100;
@@ -126,10 +133,7 @@ window.onload = async function () {
         const response = await fetch("https://api-co2.cubbit.io/save", {
           method: "POST",
           body: JSON.stringify(formDataJson),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
+          headers,
         });
         const data = await response.json();
         // if there is an error, throw error
@@ -182,7 +186,6 @@ window.onload = async function () {
         twShareLink,
         liShareLink,
         reShareLink,
-        emailShareLink,
         waShareLink,
       };
 
@@ -215,10 +218,7 @@ window.onload = async function () {
             social_media,
             amount: 1,
           }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
+          headers,
         });
         return "Sent";
       };
