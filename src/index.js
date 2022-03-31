@@ -242,6 +242,10 @@ window.onload = async function () {
 
       document.getElementById("copy_btn").addEventListener("click", () => {
         copyToClipboard();
+        Toastify({
+          text: "Copiedt",
+          duration: 1000,
+        }).showToast();
       });
     }
   });
