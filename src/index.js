@@ -87,9 +87,10 @@ window.onload = async function () {
       const total = fullStepPercentage(step) + percentageCurrentStep; // 0.06 + 4%
       return total;
     };
+    console.log(getPercentage());
     document.getElementById(
       "co2_progress_bar"
-    ).style.width = `calc(${getPercentage()}%)`;
+    ).style.width = `${getPercentage()}%`;
   }
 
   ////HOME PAGE
