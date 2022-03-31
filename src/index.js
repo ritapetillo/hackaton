@@ -92,7 +92,8 @@ window.onload = async function () {
       const differenceNextStep = steps_total[step + 1] - steps_total[step]; // grandezza dell'intervallo tra il prossimo step e il corrente -> 250
       const differenceCurrentStep = total_co2 - steps_total[step]; //50 - 35 // how much we have to complete the current step -> 15
       const percentageCurrentStep = differenceCurrentStep / differenceNextStep; // 15 / 250 = 0.06
-      const total = fullStepPercentage(step);
+      const percentageCompleted = getStepPercentage(percentageCurrentStep); // 0.06 * 4 = 0.24
+      const total = fullStepPercentage(step) + percentageCompleted; // 0.24 + 0.4 = 0.64
       console.log(total);
       return total;
     };
