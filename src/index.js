@@ -2,6 +2,9 @@ window.onload = async function () {
   // utils
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
   const loader = document.getElementById("loader");
+  const referral_code = new URLSearchParams(window.location.search).get(
+    "referral_code"
+  );
 
   //lib
   const checkCurrentCO2 = async () => {
@@ -61,8 +64,8 @@ window.onload = async function () {
       if (step === 0) {
         return 0;
       }
-      const differenceNextStep = steps_total[step + 1] - steps_total[step];
-      const differenceCurrentStep = total_co2 - steps_total[step];
+      const differenceNextStep = steps_total[step] - steps_total[step - 1];
+      const differenceCurrentStep = total_co2 - steps_total[step - 1];
       const percentageCurrentStep = differenceCurrentStep / differenceNextStep;
       const totalCompletitionPercenage =
         ((step + percentageCurrentStep) / (steps_total.length - 1)) * 100;
@@ -82,7 +85,9 @@ window.onload = async function () {
       window.location.pathname === "/it/removemyco2"
     ) {
       // referral code
-      const referral_code = window.location.search.split("=")[1];
+      // const referral_code = window.location.search.split("=")[1];
+      // get query named referral_code from url
+
       //constants
       const email = document.getElementById("email");
       const consent = document.getElementById("consent_check");
@@ -148,7 +153,6 @@ window.onload = async function () {
     // if url is /thank-you
     if (window.location.pathname.indexOf("/thank-you") !== -1) {
       // get referral code from query string
-      const referral_code = window.location.search.split("=")[1];
       if (!referral_code) {
         window.location.href = "/removemyco2";
       }
