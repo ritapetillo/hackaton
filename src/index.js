@@ -264,9 +264,9 @@ window.onload = async function () {
         copyToClipboard();
         Toastify({
           text: "Copied to clipboard",
-          position: "bottom-center",
+          position: "center",
           backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-          gravity: "top",
+          gravity: "bottom",
           duration: 1000,
         }).showToast();
       });
