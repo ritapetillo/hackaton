@@ -22,7 +22,7 @@ window.onload = async function () {
     return { total_co2, green_step };
   };
   const getCo2ForUser = async (referral_code) => {
-    const response = await newFetch(
+    const response = await fetch(
       `https://api-co2.cubbit.io/saved?email=${referral_code}`
     );
     const data = await response.json();
