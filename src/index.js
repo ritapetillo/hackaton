@@ -1,6 +1,19 @@
 window.onload = async function () {
   // utils
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
+  // step 1 => 4%
+  // all other steps incremental 16.6%
+  const fullStepPercentage = (step) => {
+    if (step === 0) {
+      // return 4%
+      return 0;
+    }
+    if (step === 1) {
+      // return 4%
+      return 4 / 100;
+    }
+    return (4 + 16.6 * (step - 1)) / 100;
+  };
   const loader = document.getElementById("loader");
   const referral_code = new URLSearchParams(window.location.search).get(
     "referral_code"
@@ -68,19 +81,15 @@ window.onload = async function () {
     // get the current percentage completed
     colorDots();
     const getPercentage = () => {
-      if (step === 0) {
-        return 0;
-      }
-      const differenceNextStep = steps_total[step] - steps_total[step];
-      const differenceCurrentStep = total_co2 - steps_total[step];
-      const percentageCurrentStep = differenceCurrentStep / differenceNextStep;
-      const totalCompletitionPercenage =
-        ((step + percentageCurrentStep) / (steps_total.length - 1)) * 100;
-      return totalCompletitionPercenage;
+      const differenceNextStep = steps_total[step] - steps_total[step + 1]; // grandezza dell'intervallo tra il prossimo step e il corrente -> 250
+      const differenceCurrentStep = total_co2 - steps_total[step]; //50 - 35 // how much we have to complete the current step -> 15
+      const percentageCurrentStep = differenceCurrentStep / differenceNextStep; // 15 / 250 = 0.06
+      const total = fullStepPercentage(step) + percentageCurrentStep; // 0.06 + 4%
+      return total;
     };
     document.getElementById(
       "co2_progress_bar"
-    ).style.width = `calc(${getPercentage()}% + 10px)`;
+    ).style.width = `calc(${getPercentage()}%)`;
   }
 
   ////HOME PAGE
@@ -243,7 +252,10 @@ window.onload = async function () {
       document.getElementById("copy_btn").addEventListener("click", () => {
         copyToClipboard();
         Toastify({
-          text: "Copiedt",
+          text: "Copied to clipboard",
+          position: "bottom-center",
+          backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+          gravity: "top",
           duration: 1000,
         }).showToast();
       });
