@@ -171,12 +171,15 @@ window.onload = async function () {
       const reShareLink = `https://www.reddit.com/submit?url=https://cubbit.io/removemyco2?referral_code=${referral_code}&title=${text}`;
       // email share link
       const emailShareLink = `mailto:?body=${text}&subject="Save CO2 from the Environment`;
+      // whatsapp share link
+      const waShareLink = `https://wa.me/?text=${text}`;
       const shareLinks = {
         fbShareLink,
         twShareLink,
         liShareLink,
         reShareLink,
         emailShareLink,
+        waShareLink,
       };
 
       const getSocialPlatform = (linkName) => {
@@ -191,6 +194,8 @@ window.onload = async function () {
             return "reddit";
           case "emailShareLink":
             return "email";
+          case "waShareLink":
+            return "whatsapp";
           default:
             return "";
         }
