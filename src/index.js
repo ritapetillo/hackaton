@@ -97,9 +97,9 @@ window.onload = async function () {
       return total;
     };
     console.log(getPercentage());
-    document.getElementById(
-      "co2_progress_bar"
-    ).style.width = `${getPercentage()}%`;
+    document.getElementById("co2_progress_bar").style.width = `${
+      getPercentage() * 100
+    }%`;
   }
 
   ////HOME PAGE
