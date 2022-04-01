@@ -78,7 +78,7 @@ window.onload = async function () {
       if (index < step) {
         dot.classList.add("completed");
       }
-      if (index === step) {
+      if (index == step) {
         dot.classList.add("load");
       }
     });
