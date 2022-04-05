@@ -96,6 +96,22 @@ window.onload = async function () {
   if (step) {
     //change image
     document.querySelector(".hackathon-img").src = arrayImages[step];
+    const grid_image = document.querySelectorAll(".hackton-grid-image");
+
+    const array = [
+      "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c273dff47c67894b03b01_noun-train-1951016%202.svg",
+      "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c273dfdfe85eabfded048_noun-news-518193%201%20(1).svg",
+      "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c273dcbe2287aa77f7912_noun-laptop-1113563%201%20(1).svg",
+      "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c273d256b60c2275a8178_Vector%20(5).svg",
+      "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c273d21ad2318360f077a_Vector%20(6).svg",
+      "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c273d7fda693e5bd5ffc1_noun-car-1069217%201%20(1).svg]",
+    ];
+
+    // for every image in the grid, if under current step, change the image
+    for (let i = 0; i < step; i++) {
+      grid_image[i].src = array[i];
+    }
+
     // get the current percentage completed
     colorDots();
     const getPercentage = () => {
