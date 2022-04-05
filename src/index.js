@@ -153,10 +153,14 @@ window.onload = async function () {
 
       // if press key enter
       email.addEventListener("keyup", (e) => {
-        if (e.keyCode === 13) submitForm();
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          submitForm(e);
+        }
       });
 
       const submitForm = async (e) => {
+        e.preventDefault();
         if (!consent.value) {
           e.preventDefault();
           errorMsg.innerHTML = "Please accept the consent";
