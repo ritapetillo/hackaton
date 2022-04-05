@@ -151,13 +151,13 @@ window.onload = async function () {
         submit.disabled = true;
       }
 
-      // if press key enter
-      email.addEventListener("keyup", (e) => {
-        if (e.keyCode === 13) {
-          e.preventDefault();
-          submitForm(e);
-        }
-      });
+      // // if press key enter
+      // email.addEventListener("keyup", (e) => {
+      //   if (e.keyCode === 13) {
+      //     e.preventDefault();
+      //     submitForm(e);
+      //   }
+      // });
 
       const submitForm = async (e) => {
         e.preventDefault();
