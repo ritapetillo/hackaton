@@ -96,6 +96,7 @@ window.onload = async function () {
   if (step) {
     //change image
     document.querySelector(".hackathon-img").src = arrayImages[step];
+    // change the image in the grid
     const grid_image = document.querySelectorAll(".hackton-grid-image");
 
     const array = [
@@ -158,8 +159,7 @@ window.onload = async function () {
         }
       });
 
-      // on form submit
-      submit.addEventListener("click", async (e) => {
+      const submitForm = async (e) => {
         if (!consent.value) {
           e.preventDefault();
           errorMsg.innerHTML = "Please accept the consent";
@@ -194,7 +194,13 @@ window.onload = async function () {
 
         //redirect to thank you page
         window.location.href = `./removemyco2/cubbit-partners-with-treedom?referral_code=${data.referral_code}`;
-      });
+      };
+
+      // if click enter in email field, submit form
+      email.addEventListener("keyup", submitForm);
+
+      // on form submit
+      submit.addEventListener("click", submitForm);
     }
   });
 
