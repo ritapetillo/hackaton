@@ -175,7 +175,9 @@ window.onload = async function () {
   ////THANK YOU PAGE
   Webflow.push(async () => {
     // if url is /thank-you
-    if (window.location.pathname.indexOf("/thank-you") !== -1) {
+    if (
+      window.location.pathname.indexOf("/cubbit-partners-with-treedom") !== -1
+    ) {
       // get referral code from query string
       if (!referral_code) {
         window.location.href = "/removemyco2";
