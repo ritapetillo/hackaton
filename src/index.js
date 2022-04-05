@@ -150,13 +150,10 @@ window.onload = async function () {
       if (!consent.checked) {
         submit.disabled = true;
       }
-      // if consent is checked, enable submit button
-      consent.addEventListener("change", () => {
-        if (consent.checked) {
-          submit.disabled = false;
-        } else {
-          submit.disabled = true;
-        }
+
+      // if press key enter
+      email.addEventListener("keyup", (e) => {
+        if (e.keyCode === 13) submitForm();
       });
 
       const submitForm = async (e) => {
