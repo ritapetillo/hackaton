@@ -167,7 +167,7 @@ window.onload = async function () {
         }
 
         //redirect to thank you page
-        window.location.href = `./removemyco2/thank-you?referral_code=${data.referral_code}`;
+        window.location.href = `./removemyco2/cubbit-partners-with-treedom?referral_code=${data.referral_code}`;
       });
     }
   });
