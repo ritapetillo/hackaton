@@ -1,4 +1,12 @@
 window.onload = async function () {
+  const arrayImages = [
+    "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/623c83e61e8699c260fe8cde_train.svg",
+    "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c0e5db4a2394af922a51a_mail.svg",
+    "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c0e5db81c1e04e19e3424_laptop.svg",
+    "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c0f3879cf7742ff8e3078_socials.svg",
+    "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c0f3e7646a8334f683920_power.svg",
+    "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c0f3e2dec4192dbb3e935_car.svg",
+  ];
   // utils
   const steps_total = [0, 35, 367, 423, 1186, 2565, 4845];
   // step 1 => 4%
@@ -86,6 +94,8 @@ window.onload = async function () {
 
   // set the progress bar width and steps
   if (step) {
+    //change image
+    document.querySelector(".hackathon-img").src = arrayImages[step];
     // get the current percentage completed
     colorDots();
     const getPercentage = () => {
