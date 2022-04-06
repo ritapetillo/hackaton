@@ -222,12 +222,13 @@ window.onload = async function () {
       subscribeLink.href += `?referral_code=${referral_code}`;
 
       const text = `${n_trees.toString()} I've saved ${total_co2_user} kg of CO2. Help me complete all steps here https://cubbit.io/removemyco2?referral_code=${referral_code}`;
+      const textTw = `${n_trees.toString()} I've saved ${total_co2_user} kg of CO2. Help me complete all steps here:`;
 
       document.getElementById("total_co2_user").innerHTML = total_co2_user;
       // facebook share link
       const fbShareLink = `https://www.facebook.com/sharer/sharer.php?u=https://cubbit.io/removemyco2?referral_code=${referral_code}&quote=${text}`;
       // twitter share link
-      const twShareLink = `https://twitter.com/intent/tweet?text=${text}&url=https://cubbit.io/removemyco2?referral_code=${referral_code}`;
+      const twShareLink = `https://twitter.com/intent/tweet?text=${textTw}&url=https://cubbit.io/removemyco2?referral_code=${referral_code}`;
       // linkedin share link
       const liShareLink = `https://www.linkedin.com/sharing/share-offsite/?url=https://cubbit.io/removemyco2?referral_code=${referral_code}&quote=${text}`;
       // reddit share link
