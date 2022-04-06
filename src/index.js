@@ -108,11 +108,6 @@ window.onload = async function () {
       "https://uploads-ssl.webflow.com/611f84142709f0e312100b42/624c273d7fda693e5bd5ffc1_noun-car-1069217%201%20(1).svg]",
     ];
 
-    // for every image in the grid, if under current step, change the image
-    for (let i = 0; i < step; i++) {
-      grid_image[i].src = array[i];
-    }
-
     // get the current percentage completed
     colorDots();
     const getPercentage = () => {
@@ -149,6 +144,11 @@ window.onload = async function () {
       const errorMsg = document.getElementById("errorMsg");
       if (!consent.checked) {
         submit.disabled = true;
+      }
+
+      // for every image in the grid, if under current step, change the image
+      for (let i = 0; i < step; i++) {
+        grid_image[i].src = array[i];
       }
 
       // if press key enter
